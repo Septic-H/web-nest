@@ -7,6 +7,7 @@ import { CategoryFilters } from "./components/category-filters"
 import { ArticleGrid } from "./components/article-grid"
 import { ArticleCardSkeleton } from "./components/article-card-skeleton"
 import { PixelScrollIndicator } from "./components/pixel-scroll-indicator"
+import { ThemeStatus } from "./components/theme-status"
 import { supabase, type Article } from "@/lib/supabase"
 
 const categories = ["All", "Tech", "Games", "Retro", "Code", "News", "Pixel"]
@@ -138,6 +139,9 @@ export default function HomePage() {
           </div>
         </div>
       </footer>
+
+      {/* Theme Status Indicator */}
+      <ThemeStatus />
     </div>
   )
 }

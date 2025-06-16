@@ -7,8 +7,8 @@ import { ThemeProvider } from "@/components/theme-provider"
 const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "NewsReader - Stay Informed",
-  description: "A modern news reader application with clean design and great user experience",
+  title: "WebNest - Retro News Reader",
+  description: "A retro-styled news reader application with pixel-perfect design and authentic computing aesthetics",
     generator: 'v0.dev'
 }
 
@@ -19,8 +19,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={inter.className}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
+      <body className={`${inter.className} theme-transition`}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+          disableTransitionOnChange={false}
+          themes={["light", "dark"]}
+        >
           {children}
         </ThemeProvider>
       </body>
