@@ -10,22 +10,28 @@ interface CategoryFiltersProps {
 
 export function CategoryFilters({ categories, selectedCategory, onCategoryChange }: CategoryFiltersProps) {
   return (
-    <div className="flex flex-wrap justify-center gap-3">
-      {categories.map((category) => (
+    <div className="flex flex-wrap justify-center gap-4">
+      {categories.map((category, index) => (
         <Button
           key={category}
           variant={selectedCategory === category ? "default" : "outline"}
           onClick={() => onCategoryChange(category)}
           className={`
-            px-6 py-2 rounded-full font-medium transition-all duration-200 transform hover:scale-105
+            px-6 py-3 font-mono font-bold tracking-wider transition-all duration-300 transform hover:scale-105 pixel-category-button
             ${
               selectedCategory === category
-                ? "bg-blue-600 hover:bg-blue-700 text-white shadow-lg"
-                : "bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 border-2 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-300"
+                ? "bg-retro-green text-retro-dark border-4 border-retro-green pixel-glow pixel-shadow-intense"
+                : "bg-retro-dark text-retro-cyan border-4 border-retro-cyan hover:border-retro-green hover:text-retro-green hover:bg-retro-green/10"
             }
           `}
+          style={{ animationDelay: `${index * 0.1}s` }}
         >
-          {category}
+          <span className="relative">
+            {category.toUpperCase()}
+            {selectedCategory === category && (
+              <div className="absolute -top-1 -right-1 w-2 h-2 bg-retro-cyan pixel-blink"></div>
+            )}
+          </span>
         </Button>
       ))}
     </div>
