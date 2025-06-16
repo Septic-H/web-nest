@@ -1,75 +1,104 @@
 import Image from "next/image"
-import { Calendar, Clock } from "lucide-react"
-
-interface Author {
-  name: string
-  avatar: string
-  role: string
-}
+import { Calendar, Clock, User } from "lucide-react"
+import type { Article } from "@/lib/supabase"
 
 interface ArticleHeaderProps {
-  article: {
-    title: string
-    description: string
-    image: string
-    publishDate: string
-    readTime: string
-    category: string
-    author: Author
-  }
+  article: Article
 }
 
 export function ArticleHeader({ article }: ArticleHeaderProps) {
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
-    return date.toLocaleDateString("en-US", {
-      month: "long",
-      day: "numeric",
-      year: "numeric",
-    })
+    return date
+      .toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+        year: "numeric",
+      })
+      .toUpperCase()
   }
 
   return (
     <div className="space-y-6 animate-fade-in">
-      {/* Category */}
-      <div className="inline-block px-4 py-1 bg-blue-600 text-white font-medium rounded-full text-sm">
-        {article.category}
+      {/* Category Badge */}
+      <div className="inline-block">
+        <div className="px-4 py-2 bg-retro-green text-retro-dark font-mono font-bold border-4 border-retro-dark pixel-glow">
+          [{article.category.toUpperCase()}]
+        </div>
       </div>
 
       {/* Title */}
-      <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white leading-tight">
-        {article.title}
+      <h1 className="text-3xl md:text-4xl lg:text-5xl font-mono font-bold text-retro-green leading-tight pixel-text-glow">
+        {article.title.toUpperCase()}
       </h1>
 
       {/* Description */}
-      <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed max-w-3xl">{article.description}</p>
+      <div className="bg-retro-darker border-4 border-retro-cyan p-6 pixel-border-animated">
+        <p className="text-xl text-retro-cyan leading-relaxed font-mono">{article.description}</p>
+      </div>
 
-      {/* Meta info */}
-      <div className="flex flex-wrap items-center gap-6 text-gray-500 dark:text-gray-400 text-sm">
-        <div className="flex items-center gap-2">
-          <Calendar className="h-4 w-4" />
-          <span>{formatDate(article.publishDate)}</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <Clock className="h-4 w-4" />
-          <span>{article.readTime}</span>
+      {/* Meta Info */}
+      <div className="bg-retro-darker border-2 border-retro-magenta p-4">
+        <div className="flex flex-wrap items-center gap-6 text-retro-cyan font-mono text-sm">
+          <div className="flex items-center gap-2 pixel-hover-effect">
+            <Calendar className="h-4 w-4" />
+            <span>{formatDate(article.publish_date)}</span>
+          </div>
+          <div className="flex items-center gap-2 pixel-hover-effect">
+            <Clock className="h-4 w-4" />
+            <span>{article.read_time.toUpperCase()}</span>
+          </div>
+          <div className="flex items-center gap-2 pixel-hover-effect">
+            <User className="h-4 w-4" />
+            <span>{article.author_name.toUpperCase()}</span>
+          </div>
         </div>
       </div>
 
-      {/* Author */}
-      <div className="flex items-center gap-4 pt-2">
-        <div className="h-12 w-12 rounded-full overflow-hidden border-2 border-gray-200 dark:border-gray-700">
-          <Image src={article.author.avatar || "/placeholder.svg"} alt={article.author.name} width={48} height={48} />
-        </div>
-        <div>
-          <div className="font-medium text-gray-900 dark:text-white">{article.author.name}</div>
-          <div className="text-sm text-gray-500 dark:text-gray-400">{article.author.role}</div>
+      {/* Author Section */}
+      <div className="bg-retro-darker border-4 border-retro-yellow p-6 pixel-glow">
+        <div className="flex items-center gap-4">
+          <div className="relative">
+            <div className="h-16 w-16 border-4 border-retro-green bg-retro-dark flex items-center justify-center">
+              <Image
+                src={article.author_avatar || "/placeholder.svg"}
+                alt={article.author_name}
+                width={48}
+                height={48}
+                className="pixel-image"
+                style={{ imageRendering: "pixelated" }}
+              />
+            </div>
+            <div className="absolute -top-1 -right-1 w-3 h-3 bg-retro-cyan pixel-blink"></div>
+          </div>
+          <div className="font-mono">
+            <div className="text-retro-green font-bold text-lg">{article.author_name.toUpperCase()}</div>
+            <div className="text-retro-cyan text-sm">{article.author_role.toUpperCase()}</div>
+            <div className="text-retro-yellow text-xs mt-1">AUTHENTICATED_USER</div>
+          </div>
         </div>
       </div>
 
       {/* Featured Image */}
-      <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] rounded-xl overflow-hidden border-2 border-gray-200 dark:border-gray-700 shadow-md">
-        <Image src={article.image || "/placeholder.svg"} alt={article.title} fill className="object-cover" priority />
+      <div className="relative border-4 border-retro-green pixel-glow overflow-hidden bg-retro-dark">
+        <div className="absolute inset-0 pixel-matrix-bg opacity-20"></div>
+        <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px]">
+          <Image
+            src={article.image_url || "/placeholder.svg"}
+            alt={article.title}
+            fill
+            className="object-cover pixel-image"
+            style={{ imageRendering: "pixelated" }}
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-retro-green/10 to-retro-cyan/10"></div>
+          <div className="absolute top-4 right-4">
+            <div className="w-4 h-4 bg-retro-magenta pixel-blink"></div>
+          </div>
+          <div className="absolute bottom-4 left-4">
+            <div className="w-3 h-3 bg-retro-yellow pixel-blink-delayed"></div>
+          </div>
+        </div>
       </div>
     </div>
   )

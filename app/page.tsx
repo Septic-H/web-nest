@@ -7,88 +7,43 @@ import { CategoryFilters } from "./components/category-filters"
 import { ArticleGrid } from "./components/article-grid"
 import { ArticleCardSkeleton } from "./components/article-card-skeleton"
 import { PixelScrollIndicator } from "./components/pixel-scroll-indicator"
+import { supabase, type Article } from "@/lib/supabase"
 
 const categories = ["All", "Tech", "Games", "Retro", "Code", "News", "Pixel"]
-
-// Mock articles data with retro theme
-const mockArticles = [
-  {
-    id: 1,
-    title: "8-Bit Revolution: How Pixel Art is Taking Over Modern Web Design",
-    description:
-      "Discover the nostalgic comeback of pixel art in contemporary digital interfaces and why developers are embracing retro aesthetics.",
-    image: "/placeholder.svg?height=200&width=300",
-    publishDate: "2024-01-15",
-    category: "Tech",
-    readTime: "5 min read",
-  },
-  {
-    id: 2,
-    title: "Retro Gaming Markets Surge as Nostalgia Drives Investment",
-    description:
-      "Classic gaming consoles and vintage computers see unprecedented demand as collectors and investors flock to retro tech.",
-    image: "/placeholder.svg?height=200&width=300",
-    publishDate: "2024-01-14",
-    category: "Games",
-    readTime: "3 min read",
-  },
-  {
-    id: 3,
-    title: "The Lost Art of Terminal Computing: A Journey Back to Green Screens",
-    description:
-      "Exploring the minimalist beauty and efficiency of command-line interfaces in our modern graphical world.",
-    image: "/placeholder.svg?height=200&width=300",
-    publishDate: "2024-01-13",
-    category: "Retro",
-    readTime: "7 min read",
-  },
-  {
-    id: 4,
-    title: "Coding Like It's 1985: Why Developers Are Returning to Assembly",
-    description: "The surprising resurgence of low-level programming languages in an age of high-level abstractions.",
-    image: "/placeholder.svg?height=200&width=300",
-    publishDate: "2024-01-12",
-    category: "Code",
-    readTime: "4 min read",
-  },
-  {
-    id: 5,
-    title: "Pixel Perfect: The Science Behind Crisp Digital Graphics",
-    description: "Understanding the mathematics and techniques that make pixel art so visually appealing and timeless.",
-    image: "/placeholder.svg?height=200&width=300",
-    publishDate: "2024-01-11",
-    category: "Pixel",
-    readTime: "6 min read",
-  },
-  {
-    id: 6,
-    title: "Breaking: Major Tech Company Announces Return to Monospace Typography",
-    description:
-      "In a surprising move, leading software company embraces retro typography for improved code readability.",
-    image: "/placeholder.svg?height=200&width=300",
-    publishDate: "2024-01-10",
-    category: "News",
-    readTime: "4 min read",
-  },
-]
 
 export default function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [searchQuery, setSearchQuery] = useState("")
   const [isLoading, setIsLoading] = useState(true)
-  const [filteredArticles, setFilteredArticles] = useState(mockArticles)
+  const [articles, setArticles] = useState<Article[]>([])
+  const [filteredArticles, setFilteredArticles] = useState<Article[]>([])
 
+  // Fetch articles from Supabase
   useEffect(() => {
-    // Simulate loading with retro effect
-    const timer = setTimeout(() => {
-      setIsLoading(false)
-    }, 2000)
+    const fetchArticles = async () => {
+      setIsLoading(true)
+      try {
+        const { data, error } = await supabase.from("articles").select("*").order("created_at", { ascending: false })
 
-    return () => clearTimeout(timer)
+        if (error) {
+          console.error("Error fetching articles:", error)
+          return
+        }
+
+        setArticles(data || [])
+      } catch (error) {
+        console.error("Error:", error)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchArticles()
   }, [])
 
+  // Filter articles based on category and search
   useEffect(() => {
-    let filtered = mockArticles
+    let filtered = articles
 
     if (selectedCategory !== "All") {
       filtered = filtered.filter((article) => article.category === selectedCategory)
@@ -103,7 +58,7 @@ export default function HomePage() {
     }
 
     setFilteredArticles(filtered)
-  }, [selectedCategory, searchQuery])
+  }, [selectedCategory, searchQuery, articles])
 
   return (
     <div className="min-h-screen bg-retro-dark pixel-bg transition-all duration-300 relative">

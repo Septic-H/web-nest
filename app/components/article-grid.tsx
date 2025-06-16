@@ -1,16 +1,7 @@
 "use client"
 
 import { ArticleCard } from "./article-card"
-
-interface Article {
-  id: number
-  title: string
-  description: string
-  image: string
-  publishDate: string
-  category: string
-  readTime: string
-}
+import type { Article } from "@/lib/supabase"
 
 interface ArticleGridProps {
   articles: Article[]
@@ -20,9 +11,14 @@ export function ArticleGrid({ articles }: ArticleGridProps) {
   if (articles.length === 0) {
     return (
       <div className="text-center py-12">
-        <div className="text-6xl mb-4">📰</div>
-        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2">No articles found</h3>
-        <p className="text-gray-600 dark:text-gray-400">Try adjusting your search or filter criteria</p>
+        <div className="text-6xl mb-4 pixel-text-glow">📰</div>
+        <h3 className="text-xl font-mono font-bold text-retro-green mb-2 pixel-glow">NO ARTICLES FOUND</h3>
+        <p className="text-retro-cyan font-mono">TRY ADJUSTING YOUR SEARCH OR FILTER CRITERIA</p>
+        <div className="flex justify-center mt-4 space-x-2">
+          <div className="w-2 h-2 bg-retro-red pixel-blink"></div>
+          <div className="w-2 h-2 bg-retro-yellow pixel-blink-delayed"></div>
+          <div className="w-2 h-2 bg-retro-red pixel-blink" style={{ animationDelay: "1s" }}></div>
+        </div>
       </div>
     )
   }

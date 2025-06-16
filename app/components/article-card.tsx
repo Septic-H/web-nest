@@ -5,16 +5,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import Image from "next/image"
 import Link from "next/link"
-
-interface Article {
-  id: number
-  title: string
-  description: string
-  image: string
-  publishDate: string
-  category: string
-  readTime: string
-}
+import type { Article } from "@/lib/supabase"
 
 interface ArticleCardProps {
   article: Article
@@ -38,7 +29,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
         <div className="relative overflow-hidden pixel-image-container">
           <div className="absolute inset-0 bg-gradient-to-br from-retro-green/20 to-retro-cyan/20 z-10"></div>
           <Image
-            src={article.image || "/placeholder.svg"}
+            src={article.image_url || "/placeholder.svg"}
             alt={article.title}
             width={400}
             height={200}
@@ -70,11 +61,11 @@ export function ArticleCard({ article }: ArticleCardProps) {
         <div className="flex items-center gap-4 text-sm text-retro-cyan/60 font-mono">
           <div className="flex items-center gap-1 pixel-hover-effect">
             <Calendar className="h-4 w-4" />
-            <span>{formatDate(article.publishDate)}</span>
+            <span>{formatDate(article.publish_date)}</span>
           </div>
           <div className="flex items-center gap-1 pixel-hover-effect">
             <Clock className="h-4 w-4" />
-            <span>{article.readTime.toUpperCase()}</span>
+            <span>{article.read_time.toUpperCase()}</span>
           </div>
         </div>
       </CardContent>
