@@ -21,7 +21,23 @@ export function RelatedArticles({ articles }: RelatedArticlesProps) {
 
   // Generate descriptive alt text for related article thumbnails
   const getRelatedImageAlt = (article: Article) => {
-    return `Thumbnail for related article: ${article.title}`
+    return `Thumbnail image for related article: ${article.title}`
+  }
+
+  // Ensure we always have valid image URLs
+  const getImageUrl = (article: Article) => {
+    if (!article.image_url || article.image_url.includes("placeholder")) {
+      const categoryDefaults: Record<string, string> = {
+        Tech: "/images/retro-computer.png",
+        Games: "/images/retro-gaming.png",
+        Retro: "/images/vintage-tech.png",
+        Code: "/images/coding-screen.png",
+        News: "/images/digital-art.png",
+        Pixel: "/images/pixel-art-gaming.png",
+      }
+      return categoryDefaults[article.category] || "/images/retro-computer.png"
+    }
+    return article.image_url
   }
 
   if (articles.length === 0) {
@@ -52,7 +68,7 @@ export function RelatedArticles({ articles }: RelatedArticlesProps) {
             <div className="flex gap-4 p-3 border-2 border-retro-cyan hover:border-retro-green bg-retro-dark hover:bg-retro-green/10 transition-all duration-200 pixel-button">
               <div className="relative h-20 w-20 flex-shrink-0 border-2 border-retro-green overflow-hidden">
                 <Image
-                  src={article.image_url || "/placeholder.svg?height=80&width=80"}
+                  src={getImageUrl(article) || "/placeholder.svg"}
                   alt={getRelatedImageAlt(article)}
                   fill
                   className="object-cover pixel-image transition-transform duration-300 group-hover:scale-110"

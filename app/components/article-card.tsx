@@ -26,15 +26,32 @@ export function ArticleCard({ article }: ArticleCardProps) {
   // Generate descriptive alt text based on article content
   const getImageAlt = (article: Article) => {
     const categoryMap: Record<string, string> = {
-      Tech: "Retro computer technology and vintage computing equipment",
-      Games: "Classic gaming console and retro video game graphics",
-      Retro: "Vintage technology and nostalgic computing devices",
-      Code: "Programming code on computer screen with syntax highlighting",
-      News: "Digital news and technology updates visualization",
-      Pixel: "Pixel art graphics and digital artwork creation",
+      Tech: "Retro computer technology and vintage computing equipment showcasing classic hardware",
+      Games: "Classic gaming console and retro video game graphics with pixel art aesthetics",
+      Retro: "Vintage technology and nostalgic computing devices from the 8-bit era",
+      Code: "Programming code on computer screen with terminal interface and syntax highlighting",
+      News: "Digital news and technology updates with modern computing visualization",
+      Pixel: "Pixel art graphics and digital artwork creation with blocky, retro-style imagery",
     }
 
-    return categoryMap[article.category] || `Illustration for article: ${article.title}`
+    return categoryMap[article.category] || `High-quality illustration representing: ${article.title}`
+  }
+
+  // Ensure we always have a valid image URL
+  const getImageUrl = (article: Article) => {
+    if (!article.image_url || article.image_url.includes("placeholder")) {
+      // Fallback to category-specific default images
+      const categoryDefaults: Record<string, string> = {
+        Tech: "/images/retro-computer.png",
+        Games: "/images/retro-gaming.png",
+        Retro: "/images/vintage-tech.png",
+        Code: "/images/coding-screen.png",
+        News: "/images/digital-art.png",
+        Pixel: "/images/pixel-art-gaming.png",
+      }
+      return categoryDefaults[article.category] || "/images/retro-computer.png"
+    }
+    return article.image_url
   }
 
   return (
@@ -43,7 +60,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
         <div className="relative overflow-hidden pixel-image-container">
           <div className="absolute inset-0 bg-gradient-to-br from-retro-green/20 to-retro-cyan/20 z-10"></div>
           <Image
-            src={article.image_url || "/placeholder.svg?height=200&width=400"}
+            src={getImageUrl(article) || "/placeholder.svg"}
             alt={getImageAlt(article)}
             width={400}
             height={200}

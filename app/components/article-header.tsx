@@ -20,12 +20,35 @@ export function ArticleHeader({ article }: ArticleHeaderProps) {
 
   // Generate descriptive alt text for featured image
   const getFeaturedImageAlt = (article: Article) => {
-    return `Featured image for article "${article.title}" - ${article.description}`
+    return `Featured image for "${article.title}" - ${article.description}`
   }
 
   // Generate descriptive alt text for author avatar
   const getAuthorAvatarAlt = (article: Article) => {
-    return `Profile photo of ${article.author_name}, ${article.author_role}`
+    return `Professional headshot of ${article.author_name}, ${article.author_role} and technology expert`
+  }
+
+  // Ensure we always have valid image URLs
+  const getImageUrl = (article: Article) => {
+    if (!article.image_url || article.image_url.includes("placeholder")) {
+      const categoryDefaults: Record<string, string> = {
+        Tech: "/images/retro-computer.png",
+        Games: "/images/retro-gaming.png",
+        Retro: "/images/vintage-tech.png",
+        Code: "/images/coding-screen.png",
+        News: "/images/digital-art.png",
+        Pixel: "/images/pixel-art-gaming.png",
+      }
+      return categoryDefaults[article.category] || "/images/retro-computer.png"
+    }
+    return article.image_url
+  }
+
+  const getAvatarUrl = (article: Article) => {
+    if (!article.author_avatar || article.author_avatar.includes("placeholder")) {
+      return "/images/avatars/tech-guru.png"
+    }
+    return article.author_avatar
   }
 
   return (
@@ -71,11 +94,11 @@ export function ArticleHeader({ article }: ArticleHeaderProps) {
           <div className="relative">
             <div className="h-16 w-16 border-4 border-retro-green bg-retro-dark flex items-center justify-center overflow-hidden">
               <Image
-                src={article.author_avatar || "/placeholder.svg?height=48&width=48"}
+                src={getAvatarUrl(article) || "/placeholder.svg"}
                 alt={getAuthorAvatarAlt(article)}
                 width={48}
                 height={48}
-                className="pixel-image object-cover"
+                className="pixel-image object-cover w-full h-full"
                 style={{ imageRendering: "pixelated" }}
                 loading="lazy"
               />
@@ -95,7 +118,7 @@ export function ArticleHeader({ article }: ArticleHeaderProps) {
         <div className="absolute inset-0 pixel-matrix-bg opacity-20" aria-hidden="true"></div>
         <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px]">
           <Image
-            src={article.image_url || "/placeholder.svg?height=500&width=800"}
+            src={getImageUrl(article) || "/placeholder.svg"}
             alt={getFeaturedImageAlt(article)}
             fill
             className="object-cover pixel-image"
