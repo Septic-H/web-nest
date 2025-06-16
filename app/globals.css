@@ -48,15 +48,15 @@
   }
 
   .light {
-    /* Light Theme - Much darker colors for better readability */
+    /* Light Theme - Much darker colors for excellent readability */
     --retro-dark: #f5f5f5;
     --retro-darker: #ffffff;
-    --retro-green: #006600; /* Much darker green */
-    --retro-cyan: #004444; /* Much darker cyan */
-    --retro-magenta: #660066; /* Much darker magenta */
-    --retro-red: #990022; /* Much darker red */
-    --retro-yellow: #996600; /* Much darker yellow */
-    --retro-blue: #004499; /* Much darker blue */
+    --retro-green: #003300; /* Much darker green */
+    --retro-cyan: #002222; /* Much darker cyan */
+    --retro-magenta: #440044; /* Much darker magenta */
+    --retro-red: #660011; /* Much darker red */
+    --retro-yellow: #664400; /* Much darker yellow */
+    --retro-blue: #002266; /* Much darker blue */
     --retro-white: #000000;
 
     /* Background and text colors for light theme */
@@ -70,24 +70,24 @@
 
     /* Shadcn variables for light theme */
     --background: 245 245 245;
-    --foreground: 0 102 0;
+    --foreground: 0 51 0;
     --card: 255 255 255;
-    --card-foreground: 0 102 0;
+    --card-foreground: 0 51 0;
     --popover: 255 255 255;
-    --popover-foreground: 0 102 0;
-    --primary: 0 102 0;
+    --popover-foreground: 0 51 0;
+    --primary: 0 51 0;
     --primary-foreground: 255 255 255;
-    --secondary: 0 68 68;
+    --secondary: 0 34 34;
     --secondary-foreground: 255 255 255;
     --muted: 230 230 230;
-    --muted-foreground: 0 68 68;
-    --accent: 102 0 102;
+    --muted-foreground: 0 34 34;
+    --accent: 68 0 68;
     --accent-foreground: 255 255 255;
-    --destructive: 153 0 34;
+    --destructive: 102 0 17;
     --destructive-foreground: 255 255 255;
-    --border: 0 102 0;
+    --border: 0 51 0;
     --input: 230 230 230;
-    --ring: 0 102 0;
+    --ring: 0 51 0;
   }
 
   * {
@@ -130,8 +130,8 @@
       0deg,
       transparent,
       transparent 2px,
-      rgba(0, 102, 0, 0.08) 2px,
-      rgba(0, 102, 0, 0.08) 4px
+      rgba(0, 51, 0, 0.08) 2px,
+      rgba(0, 51, 0, 0.08) 4px
     );
   }
 
@@ -290,7 +290,7 @@
   }
 
   .light .pixel-matrix-bg {
-    opacity: 0.2;
+    opacity: 0.3;
   }
 
   .pixel-glow {
@@ -302,7 +302,7 @@
 
   .light .pixel-glow {
     box-shadow: 0 0 5px var(--retro-green), 0 0 10px var(--retro-green), 0 0 15px var(--retro-green), inset 0 0 5px
-      rgba(0, 102, 0, 0.3);
+      rgba(0, 51, 0, 0.5);
   }
 
   .pixel-glow-intense {
@@ -314,7 +314,7 @@
 
   .light .pixel-glow-intense {
     box-shadow: 0 0 10px var(--retro-green), 0 0 20px var(--retro-green), 0 0 30px var(--retro-green), 0 0 40px
-      var(--retro-green), inset 0 0 10px rgba(0, 102, 0, 0.4);
+      var(--retro-green), inset 0 0 10px rgba(0, 51, 0, 0.6);
   }
 
   .pixel-shadow {
@@ -401,7 +401,7 @@
   }
 
   .light .pixel-logo-container::before {
-    opacity: 0.6;
+    opacity: 0.8;
   }
 
   .pixel-logo-container::after {
@@ -433,7 +433,7 @@
   }
 
   .light .pixel-button::before {
-    background: linear-gradient(90deg, transparent, rgba(0, 68, 68, 0.6), transparent);
+    background: linear-gradient(90deg, transparent, rgba(0, 34, 34, 0.6), transparent);
   }
 
   .pixel-button:hover::before {
@@ -477,7 +477,7 @@
   }
 
   .light .pixel-card:hover {
-    box-shadow: 0 8px 0px var(--retro-cyan), 0 16px 0px var(--retro-magenta), 0 24px 20px rgba(0, 102, 0, 0.4);
+    box-shadow: 0 8px 0px var(--retro-cyan), 0 16px 0px var(--retro-magenta), 0 24px 20px rgba(0, 51, 0, 0.4);
   }
 
   /* Enhanced Input Effects with Theme Support */
@@ -514,7 +514,7 @@
   }
 
   .light .pixel-input:focus {
-    box-shadow: 0 0 10px var(--retro-green), inset 0 0 10px rgba(0, 102, 0, 0.2), 0 0 20px rgba(0, 102, 0, 0.6) !important;
+    box-shadow: 0 0 10px var(--retro-green), inset 0 0 10px rgba(0, 51, 0, 0.2), 0 0 20px rgba(0, 51, 0, 0.6) !important;
   }
 
   /* Text Effects with Theme Support */
@@ -621,12 +621,41 @@
   }
 
   .light .pixel-loading-wave {
-    background: linear-gradient(90deg, transparent, rgba(0, 102, 0, 0.4), transparent);
+    background: linear-gradient(90deg, transparent, rgba(0, 51, 0, 0.4), transparent);
   }
 
   /* Theme Toggle Animation */
   .theme-transition {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* New Animation Classes */
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+
+  .pixel-typewriter {
+    overflow: hidden;
+    white-space: nowrap;
+    animation: pixelTypewriter 2s steps(40) forwards;
+  }
+
+  /* Pixel Logo Styles */
+  .pixel-logo {
+    display: inline-block;
+    position: relative;
+    z-index: 2;
+  }
+
+  .pixel-row {
+    display: flex;
+    height: 4px;
+  }
+
+  .pixel {
+    width: 4px;
+    height: 4px;
+    margin: 0;
   }
 
   /* Scrollbar styling with theme support */
@@ -664,6 +693,99 @@
     text-shadow: none;
   }
 
+  /* Additional utility classes for animations */
+  .pixel-fade-in {
+    animation: pixelFadeIn 1s ease-out forwards;
+  }
+
+  .pixel-slide-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: pixelSlideUp 0.8s ease-out forwards;
+  }
+
+  .pixel-hover-effect {
+    transition: all 0.2s ease;
+  }
+
+  .pixel-hover-effect:hover {
+    transform: translateY(-2px);
+    text-shadow: 0 0 8px currentColor;
+  }
+
+  .pixel-border-hover {
+    transition: all 0.2s ease;
+  }
+
+  .pixel-border-hover:hover {
+    border-left: 4px solid var(--retro-green);
+    padding-left: 8px;
+  }
+
+  /* Button variants */
+  .pixel-button-large {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+  }
+
+  .pixel-button-large:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 2px 2px 0px var(--retro-cyan), 4px 4px 0px var(--retro-magenta);
+  }
+
+  /* Category button animations */
+  .pixel-category-button {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+    animation: pixelCategoryAppear 0.6s ease-out forwards;
+  }
+
+  /* Image effects */
+  .pixel-image {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
+
+  .pixel-image-container {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pixel-image-container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.3), transparent);
+    animation: pixelImageScan 3s ease-in-out infinite;
+    z-index: 10;
+  }
+
+  /* Tag styles */
+  .pixel-tag {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pixel-tag::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .pixel-tag:hover::before {
+    left: 100%;
+  }
+
   /* All existing keyframes remain the same */
   @keyframes crtFlicker {
     0% {
@@ -680,6 +802,17 @@
     }
   }
 
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
   @keyframes pixelBlink {
     0%,
     50% {
@@ -689,6 +822,11 @@
     100% {
       opacity: 0;
     }
+  }
+
+  .pixel-blink-delayed {
+    animation: pixelBlink 1s infinite;
+    animation-delay: 0.5s;
   }
 
   @keyframes pixelGlow {

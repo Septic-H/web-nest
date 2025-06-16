@@ -2,6 +2,7 @@
 
 import { ArticleCard } from "./article-card"
 import type { Article } from "@/lib/supabase"
+import { MiniLoader } from "./mini-loader"
 
 interface ArticleGridProps {
   articles: Article[]
@@ -14,10 +15,8 @@ export function ArticleGrid({ articles }: ArticleGridProps) {
         <div className="text-6xl mb-4 pixel-text-glow">📰</div>
         <h3 className="text-xl font-mono font-bold text-retro-green mb-2 pixel-glow">NO ARTICLES FOUND</h3>
         <p className="text-retro-cyan font-mono">TRY ADJUSTING YOUR SEARCH OR FILTER CRITERIA</p>
-        <div className="flex justify-center mt-4 space-x-2">
-          <div className="w-2 h-2 bg-retro-red pixel-blink"></div>
-          <div className="w-2 h-2 bg-retro-yellow pixel-blink-delayed"></div>
-          <div className="w-2 h-2 bg-retro-red pixel-blink" style={{ animationDelay: "1s" }}></div>
+        <div className="flex justify-center mt-4">
+          <MiniLoader text="SEARCHING" size="sm" />
         </div>
       </div>
     )
