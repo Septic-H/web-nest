@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useTheme } from "next-themes"
+import Link from "next/link"
 
 export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -91,24 +92,24 @@ export function Navbar() {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
             <nav className="flex items-center space-x-6">
-              <a
-                href="#"
+              <Link
+                href="/"
                 className="font-mono text-retro-cyan hover:text-retro-green transition-colors duration-200 pixel-hover-effect relative"
               >
                 HOME
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                href="/trending"
                 className="font-mono text-retro-cyan hover:text-retro-green transition-colors duration-200 pixel-hover-effect relative"
               >
                 TRENDING
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                href="/archive"
                 className="font-mono text-retro-cyan hover:text-retro-green transition-colors duration-200 pixel-hover-effect relative"
               >
                 ARCHIVE
-              </a>
+              </Link>
             </nav>
 
             {/* Enhanced Theme Toggle */}
@@ -226,24 +227,27 @@ export function Navbar() {
         {isMobileMenuOpen && (
           <div className="md:hidden border-t-2 border-retro-green pixel-slide-down bg-retro-darker">
             <div className="px-2 pt-2 pb-3 space-y-1">
-              <a
-                href="#"
+              <Link
+                href="/"
                 className="block px-3 py-2 font-mono text-retro-cyan hover:bg-retro-green/20 hover:text-retro-green pixel-border-hover transition-colors duration-200"
+                onClick={() => setIsMobileMenuOpen(false)}
               >
                 HOME
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                href="/trending"
                 className="block px-3 py-2 font-mono text-retro-cyan hover:bg-retro-green/20 hover:text-retro-green pixel-border-hover transition-colors duration-200"
+                onClick={() => setIsMobileMenuOpen(false)}
               >
                 TRENDING
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                href="/archive"
                 className="block px-3 py-2 font-mono text-retro-cyan hover:bg-retro-green/20 hover:text-retro-green pixel-border-hover transition-colors duration-200"
+                onClick={() => setIsMobileMenuOpen(false)}
               >
                 ARCHIVE
-              </a>
+              </Link>
               <div className="flex items-center justify-between px-3 py-2 border-t border-retro-green/30 mt-2 pt-2">
                 <span className="font-mono text-retro-cyan">THEME: {theme === "dark" ? "DARK" : "LIGHT"}</span>
                 <div
