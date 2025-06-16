@@ -18,6 +18,16 @@ export function ArticleHeader({ article }: ArticleHeaderProps) {
       .toUpperCase()
   }
 
+  // Generate descriptive alt text for featured image
+  const getFeaturedImageAlt = (article: Article) => {
+    return `Featured image for article "${article.title}" - ${article.description}`
+  }
+
+  // Generate descriptive alt text for author avatar
+  const getAuthorAvatarAlt = (article: Article) => {
+    return `Profile photo of ${article.author_name}, ${article.author_role}`
+  }
+
   return (
     <div className="space-y-6 animate-fade-in">
       {/* Category Badge */}
@@ -41,15 +51,15 @@ export function ArticleHeader({ article }: ArticleHeaderProps) {
       <div className="bg-retro-darker border-2 border-retro-magenta p-4">
         <div className="flex flex-wrap items-center gap-6 text-retro-cyan font-mono text-sm">
           <div className="flex items-center gap-2 pixel-hover-effect">
-            <Calendar className="h-4 w-4" />
+            <Calendar className="h-4 w-4" aria-hidden="true" />
             <span>{formatDate(article.publish_date)}</span>
           </div>
           <div className="flex items-center gap-2 pixel-hover-effect">
-            <Clock className="h-4 w-4" />
+            <Clock className="h-4 w-4" aria-hidden="true" />
             <span>{article.read_time.toUpperCase()}</span>
           </div>
           <div className="flex items-center gap-2 pixel-hover-effect">
-            <User className="h-4 w-4" />
+            <User className="h-4 w-4" aria-hidden="true" />
             <span>{article.author_name.toUpperCase()}</span>
           </div>
         </div>
@@ -59,17 +69,18 @@ export function ArticleHeader({ article }: ArticleHeaderProps) {
       <div className="bg-retro-darker border-4 border-retro-yellow p-6 pixel-glow">
         <div className="flex items-center gap-4">
           <div className="relative">
-            <div className="h-16 w-16 border-4 border-retro-green bg-retro-dark flex items-center justify-center">
+            <div className="h-16 w-16 border-4 border-retro-green bg-retro-dark flex items-center justify-center overflow-hidden">
               <Image
-                src={article.author_avatar || "/placeholder.svg"}
-                alt={article.author_name}
+                src={article.author_avatar || "/placeholder.svg?height=48&width=48"}
+                alt={getAuthorAvatarAlt(article)}
                 width={48}
                 height={48}
-                className="pixel-image"
+                className="pixel-image object-cover"
                 style={{ imageRendering: "pixelated" }}
+                loading="lazy"
               />
             </div>
-            <div className="absolute -top-1 -right-1 w-3 h-3 bg-retro-cyan pixel-blink"></div>
+            <div className="absolute -top-1 -right-1 w-3 h-3 bg-retro-cyan pixel-blink" aria-hidden="true"></div>
           </div>
           <div className="font-mono">
             <div className="text-retro-green font-bold text-lg">{article.author_name.toUpperCase()}</div>
@@ -81,22 +92,26 @@ export function ArticleHeader({ article }: ArticleHeaderProps) {
 
       {/* Featured Image */}
       <div className="relative border-4 border-retro-green pixel-glow overflow-hidden bg-retro-dark">
-        <div className="absolute inset-0 pixel-matrix-bg opacity-20"></div>
+        <div className="absolute inset-0 pixel-matrix-bg opacity-20" aria-hidden="true"></div>
         <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px]">
           <Image
-            src={article.image_url || "/placeholder.svg"}
-            alt={article.title}
+            src={article.image_url || "/placeholder.svg?height=500&width=800"}
+            alt={getFeaturedImageAlt(article)}
             fill
             className="object-cover pixel-image"
             style={{ imageRendering: "pixelated" }}
             priority
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-retro-green/10 to-retro-cyan/10"></div>
+          <div
+            className="absolute inset-0 bg-gradient-to-br from-retro-green/10 to-retro-cyan/10"
+            aria-hidden="true"
+          ></div>
           <div className="absolute top-4 right-4">
-            <div className="w-4 h-4 bg-retro-magenta pixel-blink"></div>
+            <div className="w-4 h-4 bg-retro-magenta pixel-blink" aria-hidden="true"></div>
           </div>
           <div className="absolute bottom-4 left-4">
-            <div className="w-3 h-3 bg-retro-yellow pixel-blink-delayed"></div>
+            <div className="w-3 h-3 bg-retro-yellow pixel-blink-delayed" aria-hidden="true"></div>
           </div>
         </div>
       </div>
